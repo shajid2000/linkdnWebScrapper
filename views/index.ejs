@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>LinkedIn Scraper</title>
+</head>
+<body>
+    <h1>LinkedIn Profile Scraper</h1>
+    <label for="linkedinProfileUrl">Enter LinkedIn Profile URL:</label>
+    <input type="text" id="linkedinProfileUrl" placeholder="https://www.linkedin.com/in/your-profile-url">
+    <button id="scrapeButton">Scrape</button>
+    <div id="result">
+        <p>Followers: <span id="followers">N/A</span></p>
+        <p>Following: <span id="following">N/A</span></p>
+    </div>
+    <script >
+        document.getElementById('scrapeButton').addEventListener('click', async () => {
+  const linkedinProfileUrl = document.getElementById('linkedinProfileUrl').value;
+  const result = document.getElementById('result');
+
+  if (linkedinProfileUrl) {
+    const response = await fetch(`/scrape?profileUrl=${linkedinProfileUrl}`);
+    const data = await response.json();
+
+    document.getElementById('followers').textContent = data.followers;
+    document.getElementById('following').textContent = data.following;
+  } else {
+    alert('Please enter a LinkedIn profile URL.');
+  }
+});
+
+    </script>
+</body>
+</html>
